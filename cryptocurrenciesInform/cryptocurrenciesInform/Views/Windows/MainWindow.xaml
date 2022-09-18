@@ -3,10 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:cryptocurrenciesInform.ViewModels"
         xmlns:local="clr-namespace:cryptocurrenciesInform"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="{Binding Title}" Height="450" Width="800">
 
-    </Grid>
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Home"/>
+            <TextBox Foreground="LightGray" Width="100">Поиск...</TextBox>
+        </Menu>
+        <Grid>
+            <ListBox ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedCurrency}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Background="CadetBlue" Width="200" Height="40">
+                                <TextBlock TextAlignment="Center" Margin="10" Text="{Binding id}"/>
+                            </Border>
+                            <Border Background="Aqua" Width="200" Height="40">
+                                <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding symbol}"/>
+                            </Border>
+                            <Border Background="Bisque" Width="200" Height="40">
+                                <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding rateUsd}"/>
+                            </Border>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+        </Grid>
+
+
+    </DockPanel>
 </Window>
