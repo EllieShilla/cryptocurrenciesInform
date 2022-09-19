@@ -29,10 +29,7 @@ namespace cryptocurrenciesInform.Models
                 Console.WriteLine(i.id);
             }
 
-            Console.Read();
-
             return cryptos.data.Where(i => i.type.Equals("crypto")).OrderByDescending(i => i.rateUsd).ToList();
-
         }
     }
 }

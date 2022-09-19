@@ -1,4 +1,5 @@
 ﻿using cryptocurrenciesInform.Models;
+using cryptocurrenciesInform.Services;
 using cryptocurrenciesInform.ViewModels.Base;
 using System;
 using System.Collections.Generic;
@@ -11,56 +12,60 @@ namespace cryptocurrenciesInform.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        private readonly GatherInformation getData;
-
-        #region Заголовок окна
-        private string _Title = "Crypto Currencies";
-        /// <summary> Заголовок окна </summary>
-
-        public string Title
-        {
-            get => _Title;
-            set => Set(ref _Title, value);
-        }
-        #endregion
-
-        #region Перечесление валют
-        private ObservableCollection<Crypto> _currencies;
-        private Crypto _selected_currencies;
-        public ObservableCollection<Crypto> Currencies
-        {
-            get => _currencies;
-            set => Set(ref _currencies, value);
-        }
-
-        #endregion
+        private IPageViewModel _currentPageViewModel;
+        private List<IPageViewModel> _pageViewModels;
 
         public MainWindowViewModel()
         {
-            Currencies = new ObservableCollection<Crypto>();
-            getData = new GatherInformation();
-            RetrieveCurrencyAsync();
+            PageViewModels.Add(new HomeVM());
+            //PageViewModels.Add(new DetailVM());
+
+            CurrentPageViewModel = new HomeVM();
+
+            Mediator.Subscribe("GoTo1Screen", OnGo1Screen);
+            Mediator.Subscribe("GoTo2Screen", OnGo2Screen);
         }
 
-        async void RetrieveCurrencyAsync()
+        private void OnGo1Screen(object obj)
         {
-            foreach (var i in await getData.RetrieveCurrencyAsync())
+            ChangeViewModel(PageViewModels[0]);
+        }
+
+        private void OnGo2Screen(object obj)
+        {
+            ChangeViewModel(new DetailVM((Crypto)obj));
+        }
+
+        public List<IPageViewModel> PageViewModels
+        {
+            get
             {
-                Currencies.Add(new Crypto
-                {
-                    id = i.id,
-                    currencySymbol = i.currencySymbol,
-                    rateUsd = i.rateUsd,
-                    symbol = i.symbol,
-                    type = i.type
-                });
+                if (_pageViewModels == null)
+                    _pageViewModels = new List<IPageViewModel>();
+
+                return _pageViewModels;
             }
         }
 
-        public Crypto SelectedCurrency
+        public IPageViewModel CurrentPageViewModel
         {
-            get { return _selected_currencies; }
-            set { Set(ref _selected_currencies, value); }
+            get
+            {
+                return _currentPageViewModel;
+            }
+            set
+            {
+                _currentPageViewModel = value;
+                OnPropertyChanged("CurrentPageViewModel");
+            }
+        }
+
+        private void ChangeViewModel(IPageViewModel viewModel)
+        {
+            if (!PageViewModels.Contains(viewModel))
+                PageViewModels.Add(viewModel);
+
+            CurrentPageViewModel = PageViewModels.FirstOrDefault(vm => vm == viewModel);
         }
     }
 }
