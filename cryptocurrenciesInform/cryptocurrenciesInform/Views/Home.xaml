@@ -8,10 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
 
-        <Menu DockPanel.Dock="Top">
+        <!--<Menu DockPanel.Dock="Top">
             <MenuItem Header="Home"/>
             <TextBox Foreground="LightGray" Width="100">Поиск...</TextBox>
-        </Menu>
+        </Menu>-->
 
         <Grid>
 

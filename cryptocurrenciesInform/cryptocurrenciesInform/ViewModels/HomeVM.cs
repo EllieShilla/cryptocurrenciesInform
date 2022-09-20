@@ -15,7 +15,7 @@ namespace cryptocurrenciesInform.ViewModels
     {
         private readonly GatherInformation information;
 
-        #region Перечесление валют
+        #region Перечисление валют
         private ObservableCollection<Crypto> _currencies;
         public ObservableCollection<Crypto> Currencies
         {

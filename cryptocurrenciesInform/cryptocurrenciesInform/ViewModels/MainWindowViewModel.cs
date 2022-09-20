@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace cryptocurrenciesInform.ViewModels
 {
@@ -14,6 +15,15 @@ namespace cryptocurrenciesInform.ViewModels
     {
         private IPageViewModel _currentPageViewModel;
         private List<IPageViewModel> _pageViewModels;
+
+        #region Search
+        private string _search = "Search";
+        public string Search
+        {
+            get => _search;
+            set => Set(ref _search, value);
+        }
+        #endregion
 
         public MainWindowViewModel()
         {
@@ -66,6 +76,16 @@ namespace cryptocurrenciesInform.ViewModels
                 PageViewModels.Add(viewModel);
 
             CurrentPageViewModel = PageViewModels.FirstOrDefault(vm => vm == viewModel);
+        }
+
+        private RelayCommand searchCurrency;
+        public ICommand SearchCurrency => searchCurrency ??= new RelayCommand(PerformSearchCurrency);
+
+        private async void PerformSearchCurrency(object commandParameter)
+        {
+            Crypto crypto = new Crypto();
+            crypto.id = Search.ToLower();
+            ChangeViewModel(new DetailVM(crypto));
         }
     }
 }

@@ -12,7 +12,17 @@
         <vm:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Grid>
-        <ContentControl Content="{Binding CurrentPageViewModel}"/>
-    </Grid>
+    <DockPanel>
+
+        <Menu DockPanel.Dock="Top">
+            <TextBox Foreground="LightGray" Width="100" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding Path=SearchCurrency}" Key="Enter" />
+                </TextBox.InputBindings>
+            </TextBox>
+        </Menu>
+        <Grid>
+            <ContentControl Content="{Binding CurrentPageViewModel}"/>
+        </Grid>
+    </DockPanel>
 </Window>

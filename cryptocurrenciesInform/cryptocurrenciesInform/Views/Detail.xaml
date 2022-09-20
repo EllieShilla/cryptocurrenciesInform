@@ -6,14 +6,109 @@
              xmlns:local="clr-namespace:cryptocurrenciesInform.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <TextBlock Text="Detail"/>
-        <TextBlock Margin="20" Text="{Binding SelectedItem.id}"/>
-
-        <Button
+    <DockPanel Background="AliceBlue">
+        <Menu DockPanel.Dock="Top">
+            <Button
             Content="Home"
-            Command="{Binding GoTo1}"
-            Width="90" Height="30" />
+            Command="{Binding GoTo1}"/>
+
+        </Menu>
+        <ScrollViewer  VerticalScrollBarVisibility="Auto">
+
+            <StackPanel Orientation="Vertical">
+                <Grid DockPanel.Dock="Top" Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">asset_id</Label>
+                    <Label Grid.Column="1">price</Label>
+                    <Label Grid.Column="2">volume_24h</Label>
+                    <Label Grid.Column="3">change_1h</Label>
+                    <Label Grid.Column="4">change_24h</Label>
+                    <Label Grid.Column="5">change_7d</Label>
+                </Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Border Background="CadetBlue" Width="200" Height="40">
+                        <TextBlock TextAlignment="Center" Margin="10" Text="{Binding _Asset.asset_id}"/>
+                    </Border>
+                    <Border Background="Aqua" Width="200" Height="40">
+                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.price}"/>
+                    </Border>
+                    <Border Background="Bisque" Width="200" Height="40">
+                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.volume_24h}"/>
+                    </Border>
+                    <Border Background="Bisque" Width="200" Height="40">
+                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.change_1h}"/>
+                    </Border>
+                    <Border Background="Bisque" Width="200" Height="40">
+                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.change_24h}"/>
+                    </Border>
+                    <Border Background="Bisque" Width="200" Height="40">
+                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.change_7d}"/>
+                    </Border>
+                </StackPanel>
+                <Grid>
+
+                    <ListBox ItemsSource="{Binding Markets}">
+                        <ListBox.Template>
+                            <ControlTemplate>
+                                <DockPanel LastChildFill="True">
+                                    <Grid DockPanel.Dock="Top" Height="30">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                            <ColumnDefinition Width="200"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0">baseId</Label>
+                                        <Label Grid.Column="1">baseSymbol</Label>
+                                        <Label Grid.Column="2">exchangeId</Label>
+                                        <Label Grid.Column="3">priceUsd</Label>
+                                        <Label Grid.Column="4">quoteId</Label>
+                                        <Label Grid.Column="5">quoteSymbol</Label>
+                                    </Grid>
+                                    <ItemsPresenter></ItemsPresenter>
+                                </DockPanel>
+                            </ControlTemplate>
+                        </ListBox.Template>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Background="CadetBlue" Width="200" Height="40">
+                                        <TextBlock TextAlignment="Center" Margin="10" Text="{Binding baseId}"/>
+                                    </Border>
+                                    <Border Background="Aqua" Width="200" Height="40">
+                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding baseSymbol}"/>
+                                    </Border>
+                                    <Border Background="Bisque" Width="200" Height="40">
+                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding exchangeId}"/>
+                                    </Border>
+                                    <Border Background="Bisque" Width="200" Height="40">
+                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding priceUsd}"/>
+                                    </Border>
+                                    <Border Background="Bisque" Width="200" Height="40">
+                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding quoteId}"/>
+                                    </Border>
+                                    <Border Background="Bisque" Width="200" Height="40">
+                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding quoteSymbol}"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
 
     </DockPanel>
 </UserControl>
