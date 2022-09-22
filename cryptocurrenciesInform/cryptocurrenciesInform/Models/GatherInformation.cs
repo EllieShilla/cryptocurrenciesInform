@@ -16,6 +16,7 @@ namespace cryptocurrenciesInform.Models
         private readonly string markets_url_coincap = "https://api.coincap.io/v2/assets/";
         private readonly string asset_url_coincap = "https://api.coincap.io/v2/assets/";
         private readonly string asset_url_coingecko = "https://api.coingecko.com/api/v3/search?query=";
+        private readonly string all_asset_url_coincap = "https://api.coincap.io/v2/assets";
 
         private Crypto _cryptoDetail;
         public GatherInformation() { }
@@ -58,6 +59,11 @@ namespace cryptocurrenciesInform.Models
                         response = await client.GetAsync(asset_url_coingecko);
                     }
                     break;
+                case "convert":
+                    {
+                        response = await client.GetAsync(all_asset_url_coincap);
+                    }
+                    break;
             }
 
             return await response.Content.ReadAsStringAsync();
@@ -91,6 +97,12 @@ namespace cryptocurrenciesInform.Models
         {
             DataAsset2 dataAsset = Newtonsoft.Json.JsonConvert.DeserializeObject<DataAsset2>(await GetDataString("assetsBySymbol_2"));
             return dataAsset.coins[0];
+        }
+
+        public async Task<List<ConvertCurrency>> RetrieveConvertCurrencyAsync()
+        {
+            ConvertData cryptos = Newtonsoft.Json.JsonConvert.DeserializeObject<ConvertData>(await GetDataString("convert"));
+            return cryptos.data;
         }
     }
 }
