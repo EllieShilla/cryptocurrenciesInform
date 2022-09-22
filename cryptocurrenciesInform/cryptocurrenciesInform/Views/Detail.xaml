@@ -4,105 +4,189 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:cryptocurrenciesInform.Views"
+             xmlns:converters="clr-namespace:cryptocurrenciesInform.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000">
-    <DockPanel Background="AliceBlue">
-        <ScrollViewer  VerticalScrollBarVisibility="Auto">
 
-            <StackPanel Orientation="Vertical">
-                <Grid DockPanel.Dock="Top" Height="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0">asset_id</Label>
-                    <Label Grid.Column="1">price</Label>
-                    <Label Grid.Column="2">volume_24h</Label>
-                    <Label Grid.Column="3">change_1h</Label>
-                    <Label Grid.Column="4">change_24h</Label>
-                    <Label Grid.Column="5">change_7d</Label>
-                </Grid>
-                <StackPanel Orientation="Horizontal">
-                    <Border Background="CadetBlue" Width="200" Height="40">
-                        <TextBlock TextAlignment="Center" Margin="10" Text="{Binding _Asset.asset_id}"/>
-                    </Border>
-                    <Border Background="Aqua" Width="200" Height="40">
-                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.price}"/>
-                    </Border>
-                    <Border Background="Bisque" Width="200" Height="40">
-                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.volume_24h}"/>
-                    </Border>
-                    <Border Background="Bisque" Width="200" Height="40">
-                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.change_1h}"/>
-                    </Border>
-                    <Border Background="Bisque" Width="200" Height="40">
-                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.change_24h}"/>
-                    </Border>
-                    <Border Background="Bisque" Width="200" Height="40">
-                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding _Asset.change_7d}"/>
-                    </Border>
-                </StackPanel>
-                <Grid>
+    <UserControl.Resources>
+        <converters:IsMoreThenZeroConverter x:Key="MoreThenZeroConverter"/>
+        <Style x:Key="ListBoxLabel" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        <Style x:Key="ListBoxItemTemplate" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="ScrollViewer" TargetType="ScrollViewer">
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="CryptoLabel" TargetType="Label">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="MainGrid" TargetType="Grid">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="BorderTitle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="CryptoInfo" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+            <Setter Property="Padding" Value="0 4 0 0"/>
+        </Style>
+        <Style x:Key="ListBoxBorder" TargetType="Border">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0,1,0,0"/>
+        </Style>
+    </UserControl.Resources>
 
-                    <ListBox ItemsSource="{Binding Markets}">
-                        <ListBox.Template>
-                            <ControlTemplate>
-                                <DockPanel LastChildFill="True">
-                                    <Grid DockPanel.Dock="Top" Height="30">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                            <ColumnDefinition Width="200"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0">baseId</Label>
-                                        <Label Grid.Column="1">baseSymbol</Label>
-                                        <Label Grid.Column="2">exchangeId</Label>
-                                        <Label Grid.Column="3">priceUsd</Label>
-                                        <Label Grid.Column="4">quoteId</Label>
-                                        <Label Grid.Column="5">quoteSymbol</Label>
-                                    </Grid>
-                                    <ItemsPresenter></ItemsPresenter>
-                                </DockPanel>
-                            </ControlTemplate>
-                        </ListBox.Template>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Background="CadetBlue" Width="200" Height="40">
-                                        <TextBlock TextAlignment="Center" Margin="10" Text="{Binding baseId}"/>
-                                    </Border>
-                                    <Border Background="Aqua" Width="200" Height="40">
-                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding baseSymbol}"/>
-                                    </Border>
-                                    <Border Background="Bisque" Width="200" Height="40">
-                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding exchangeId}"/>
-                                    </Border>
-                                    <Border Background="Bisque" Width="200" Height="40">
-                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding priceUsd}"/>
-                                    </Border>
-                                    <Border Background="Bisque" Width="200" Height="40">
-                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding quoteId}"/>
-                                    </Border>
-                                    <Border Background="Bisque" Width="200" Height="40">
-                                        <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding quoteSymbol}"/>
-                                    </Border>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+    <Grid Style="{StaticResource MainGrid}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="20 40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource BorderTitle}">
+                <TextBlock Style="{StaticResource Title}" Text="{Binding _Asset.name}"/>
+            </Border>
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource CryptoLabel}">Price:</Label>
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource CryptoLabel}">24h Volume:</Label>
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource CryptoLabel}">Change 1h:</Label>
+            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource CryptoLabel}">Change 24h:</Label>
+            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource CryptoLabel}">Change 7d:</Label>
 
-
-                </Grid>
-            </StackPanel>
-        </ScrollViewer>
-
-
-    </DockPanel>
+            <Border Grid.Row="1" Grid.Column="1">
+                <TextBlock Style="{StaticResource CryptoInfo}" Text="{Binding _Asset.price, StringFormat={}$ {0:0.##}}"/>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="1">
+                <TextBlock Style="{StaticResource CryptoInfo}" Text="{Binding _Asset.volume_24h, StringFormat={}$ {0:0.##}}"/>
+            </Border>
+            <Border Grid.Row="3" Grid.Column="1">
+                <TextBlock  HorizontalAlignment="Left" 
+                            FontSize="16" 
+                            Padding="0 4 0 0" 
+                            Margin="10 0 0 0"  
+                            Text="{Binding _Asset.change_1h, StringFormat={}{0:0.##}%}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="Green"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding _Asset.change_1h, Converter={StaticResource MoreThenZeroConverter}}" Value="false">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+            <Border Grid.Row="4" Grid.Column="1">
+                <TextBlock  HorizontalAlignment="Left" 
+                            FontSize="16" 
+                            Padding="0 4 0 0" 
+                            Margin="10 0 0 0"  
+                            Text="{Binding _Asset.change_24h, StringFormat={}{0:0.##}%}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="Green"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding _Asset.change_24h, Converter={StaticResource MoreThenZeroConverter}}" Value="false">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+            <Border Grid.Row="5" Grid.Column="1">
+                <TextBlock  HorizontalAlignment="Left" 
+                            FontSize="16" 
+                            Padding="0 4 0 0" 
+                            Margin="10 0 0 0"  
+                            Text="{Binding _Asset.change_7d, StringFormat={}{0:0.##}%}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="Green"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding _Asset.change_7d, Converter={StaticResource MoreThenZeroConverter}}" Value="false">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1" Margin="20 40" >
+            <ScrollViewer Style="{StaticResource ScrollViewer}">
+                <ListBox ItemsSource="{Binding Markets}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="False">
+                                <Grid DockPanel.Dock="Top" Height="30" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Style="{StaticResource ListBoxLabel}">Title</Label>
+                                    <Label Grid.Column="1" Style="{StaticResource ListBoxLabel}">Price (USD)</Label>
+                                    <Label Grid.Column="2" Style="{StaticResource ListBoxLabel}">Currency</Label>
+                                </Grid>
+                                <ItemsPresenter></ItemsPresenter>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Style="{StaticResource ListBoxBorder}">
+                                    <TextBlock Style="{StaticResource ListBoxItemTemplate}" Text="{Binding exchangeId}"/>
+                                </Border>
+                                <Border Style="{StaticResource ListBoxBorder}">
+                                    <TextBlock Style="{StaticResource ListBoxItemTemplate}" Text="{Binding priceUsd, StringFormat={}${0:0.##}}"/>
+                                </Border>
+                                <Border Style="{StaticResource ListBoxBorder}">
+                                    <TextBlock Style="{StaticResource ListBoxItemTemplate}" Text="{Binding quoteId}"/>
+                                </Border>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
 </UserControl>

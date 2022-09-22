@@ -108,7 +108,7 @@ namespace cryptocurrenciesInform.ViewModels
                     baseSymbol = i.baseSymbol,
                     exchangeId = i.exchangeId,
                     priceUsd = i.priceUsd,
-                    quoteId = i.quoteId,
+                    quoteId = ChangeString.UpperFirstChar(i.quoteId) + "(" + i.quoteSymbol + ")",
                     quoteSymbol = i.quoteSymbol
                 });
             }

@@ -13,7 +13,7 @@ namespace cryptocurrenciesInform.Models
         public string quoteId { get; set; }
         public string baseSymbol { get; set; }
         public string quoteSymbol { get; set; }
-        public string priceUsd { get; set; }
+        public decimal priceUsd { get; set; }
     }
 
     public class DataMarket

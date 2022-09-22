@@ -63,7 +63,7 @@ namespace cryptocurrenciesInform.ViewModels
                         rateUsd = decimal.Round(i.rateUsd, 4),
                         symbol = i.symbol,
                         type = i.type,
-                        currencyName = ChangeString.UpperFirstChar(i.id) + "  (" + i.symbol + ")",
+                        currencyName = ChangeString.UpperFirstChar(i.id) + "(" + i.symbol + ")",
                         volumeUsd24Hr = decimal.Round(coincapCryptos.FirstOrDefault(y => y.id.Equals(i.id)).volumeUsd24Hr, 2),
                         changePercent24Hr = decimal.Round(coincapCryptos.FirstOrDefault(y => y.id.Equals(i.id)).changePercent24Hr, 2)
                     });

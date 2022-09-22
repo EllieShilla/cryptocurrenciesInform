@@ -10,10 +10,17 @@ namespace cryptocurrenciesInform.Services
     {
         public static string UpperFirstChar(string str)
         {
-            StringBuilder sb = new StringBuilder(str);
-            sb[0] = char.ToUpper(str[0]);
-            str = sb.ToString();
+            string[] strArr = str.Split("-");
+            StringBuilder sb = new StringBuilder();
 
+            foreach (string strItem in strArr)
+            {
+                StringBuilder buff = new StringBuilder(strItem);
+                buff[0] = char.ToUpper(buff[0]);
+                sb.Append(buff + " ");
+            }
+
+            str = sb.ToString();
             return str;
         }
     }
