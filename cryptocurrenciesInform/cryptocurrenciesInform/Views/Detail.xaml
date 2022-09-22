@@ -7,12 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel Background="AliceBlue">
-        <Menu DockPanel.Dock="Top">
-            <Button
-            Content="Home"
-            Command="{Binding GoTo1}"/>
-
-        </Menu>
         <ScrollViewer  VerticalScrollBarVisibility="Auto">
 
             <StackPanel Orientation="Vertical">

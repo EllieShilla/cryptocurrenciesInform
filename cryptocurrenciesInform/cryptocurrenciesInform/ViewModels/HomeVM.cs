@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace cryptocurrenciesInform.ViewModels
@@ -14,6 +15,7 @@ namespace cryptocurrenciesInform.ViewModels
     public class HomeVM : ViewModelBase, IPageViewModel
     {
         private readonly GatherInformation information;
+        private List<CoincapCrypto> coincapCryptos;
 
         #region Перечисление валют
         private ObservableCollection<Crypto> _currencies;
@@ -24,6 +26,7 @@ namespace cryptocurrenciesInform.ViewModels
         }
         #endregion
 
+        #region Go To Detail View
         private ICommand _goTo2;
 
         public ICommand GoTo2
@@ -36,6 +39,7 @@ namespace cryptocurrenciesInform.ViewModels
                 }));
             }
         }
+        #endregion
 
         public HomeVM()
         {
@@ -46,16 +50,24 @@ namespace cryptocurrenciesInform.ViewModels
 
         async void RetrieveCurrencyAsync()
         {
+            coincapCryptos = new List<CoincapCrypto>();
+            coincapCryptos.AddRange(await information.RetrievecoincapCryptoAsync());
+
             foreach (var i in await information.RetrieveCurrencyAsync())
             {
-                Currencies.Add(new Crypto
+                if (coincapCryptos.FirstOrDefault(y => y.id.Equals(i.id)) != null)
                 {
-                    id = i.id,
-                    currencySymbol = i.currencySymbol,
-                    rateUsd = i.rateUsd,
-                    symbol = i.symbol,
-                    type = i.type
-                });
+                    Currencies.Add(new Crypto
+                    {
+                        id = i.id,
+                        rateUsd = decimal.Round(i.rateUsd, 4),
+                        symbol = i.symbol,
+                        type = i.type,
+                        currencyName = ChangeString.UpperFirstChar(i.id) + "  (" + i.symbol + ")",
+                        volumeUsd24Hr = decimal.Round(coincapCryptos.FirstOrDefault(y => y.id.Equals(i.id)).volumeUsd24Hr, 2),
+                        changePercent24Hr = decimal.Round(coincapCryptos.FirstOrDefault(y => y.id.Equals(i.id)).changePercent24Hr, 2)
+                    });
+                }
             }
         }
 

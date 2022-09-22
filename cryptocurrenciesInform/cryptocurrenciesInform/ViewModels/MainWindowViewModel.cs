@@ -17,7 +17,7 @@ namespace cryptocurrenciesInform.ViewModels
         private List<IPageViewModel> _pageViewModels;
 
         #region Search
-        private string _search = "Search";
+        private string _search;
         public string Search
         {
             get => _search;
@@ -28,15 +28,15 @@ namespace cryptocurrenciesInform.ViewModels
         public MainWindowViewModel()
         {
             PageViewModels.Add(new HomeVM());
-            //PageViewModels.Add(new DetailVM());
-
+            PageViewModels.Add(new ConverterVM());
             CurrentPageViewModel = new HomeVM();
 
-            Mediator.Subscribe("GoTo1Screen", OnGo1Screen);
+            Mediator.Subscribe("GoTo1Screen", PerformOnGo1Screen);
             Mediator.Subscribe("GoTo2Screen", OnGo2Screen);
+            Mediator.Subscribe("GoTo3Screen", PerformOnGo3Screen);
         }
 
-        private void OnGo1Screen(object obj)
+        private void PerformOnGo1Screen(object obj)
         {
             ChangeViewModel(PageViewModels[0]);
         }
@@ -44,6 +44,11 @@ namespace cryptocurrenciesInform.ViewModels
         private void OnGo2Screen(object obj)
         {
             ChangeViewModel(new DetailVM((Crypto)obj));
+        }
+
+        private void PerformOnGo3Screen(object obj)
+        {
+            ChangeViewModel(PageViewModels[1]);
         }
 
         public List<IPageViewModel> PageViewModels
@@ -86,6 +91,13 @@ namespace cryptocurrenciesInform.ViewModels
             Crypto crypto = new Crypto();
             crypto.id = Search.ToLower();
             ChangeViewModel(new DetailVM(crypto));
+            Search = "";
         }
+
+        private RelayCommand onGo1Screen;
+        public ICommand OnGo1Screen => onGo1Screen ??= new RelayCommand(PerformOnGo1Screen);
+
+        private RelayCommand onGo3Screen;
+        public ICommand OnGo3Screen => onGo3Screen ??= new RelayCommand(PerformOnGo3Screen);
     }
 }

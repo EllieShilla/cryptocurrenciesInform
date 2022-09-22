@@ -13,14 +13,42 @@
     </Window.DataContext>
 
     <DockPanel>
+        <Grid DockPanel.Dock="Top" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
 
-        <Menu DockPanel.Dock="Top">
-            <TextBox Foreground="LightGray" Width="100" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}">
+            <Button Grid.Column="0"
+            Content="Home"
+            Command="{Binding OnGo1Screen}"/>
+            <Button Grid.Column="1"
+            Content="Converter "
+            Command="{Binding OnGo3Screen}"/>
+
+            <TextBox  Grid.Row="0" Grid.Column="2"  x:Name="tb1" Foreground="LightGray" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" Grid.RowSpan="2">
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding Path=SearchCurrency}" Key="Enter" />
                 </TextBox.InputBindings>
             </TextBox>
-        </Menu>
+            <TextBlock Grid.Row="0" Grid.Column="2" IsHitTestVisible="False" Text="Search..." Foreground="Gray"  Grid.RowSpan="2">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=tb1}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+        </Grid>
         <Grid>
             <ContentControl Content="{Binding CurrentPageViewModel}"/>
         </Grid>

@@ -104,5 +104,11 @@ namespace cryptocurrenciesInform.Models
             ConvertData cryptos = Newtonsoft.Json.JsonConvert.DeserializeObject<ConvertData>(await GetDataString("convert"));
             return cryptos.data;
         }
+
+        public async Task<List<CoincapCrypto>> RetrievecoincapCryptoAsync()
+        {
+            CoincapCryptosList cryptos = Newtonsoft.Json.JsonConvert.DeserializeObject<CoincapCryptosList>(await GetDataString("convert"));
+            return cryptos.data;
+        }
     }
 }
