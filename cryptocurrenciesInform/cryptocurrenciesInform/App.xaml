@@ -12,5 +12,8 @@
         <DataTemplate DataType="{x:Type vm:DetailVM}">
             <v:Detail/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ConverterVM}">
+            <v:Converter/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

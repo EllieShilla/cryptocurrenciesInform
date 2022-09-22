@@ -53,3 +53,5 @@ D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\bin\
 D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
 D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
+D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\obj\Debug\net6.0-windows\Views\Converter.g.cs
+D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\obj\Debug\net6.0-windows\Views\Converter.baml

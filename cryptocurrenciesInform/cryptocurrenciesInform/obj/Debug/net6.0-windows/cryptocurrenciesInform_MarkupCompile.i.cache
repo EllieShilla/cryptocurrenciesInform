@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\git\cryptocurrenciesInform\cryptocurrenciesInform\cryptocurrenciesInform\App.xaml
-31866727864
+41394242966
 
-212074073651
+22703500618
 2201286011059
-Views\Detail.xaml;Views\Home.xaml;Views\Windows\MainWindow.xaml;
+Views\Converter.xaml;Views\Detail.xaml;Views\Home.xaml;Views\Windows\MainWindow.xaml;
 
-False
+True
 
