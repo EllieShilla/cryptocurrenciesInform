@@ -1,11 +1,12 @@
-﻿using System;
+﻿using cryptocurrenciesInform.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cryptocurrenciesInform.Models
+namespace cryptocurrenciesInform.Services
 {
     internal class GatherInformation
     {
