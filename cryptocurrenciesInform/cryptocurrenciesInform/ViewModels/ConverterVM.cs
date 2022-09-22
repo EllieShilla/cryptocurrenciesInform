@@ -57,8 +57,8 @@ namespace cryptocurrenciesInform.ViewModels
         }
         #endregion
 
-        #region 
-        private decimal _count;
+        #region Count Currency
+        private decimal _count = 1;
         public decimal Count
         {
             get => _count;
@@ -66,7 +66,7 @@ namespace cryptocurrenciesInform.ViewModels
         }
         #endregion
 
-        #region 
+        #region Result
         private decimal result;
         public decimal Result
         {
@@ -107,15 +107,27 @@ namespace cryptocurrenciesInform.ViewModels
                     priceUsd = i.priceUsd,
                 });
             }
+
+            FirstConvert();
         }
 
         private RelayCommand convert;
         public ICommand Convert => convert ??= new RelayCommand(PerformConvert);
 
-        private void PerformConvert(object commandParameter)
+        private void PerformConvert(object commandParameter = null)
         {
             Result = Count * FromCurrency.priceUsd;
             Result /= toCurrency.priceUsd;
+        }
+
+        public void FirstConvert()
+        {
+            if (ConvertCurrencies.Count > 0 && FromCurrency == null && ToCurrency == null)
+            {
+                FromCurrency = ConvertCurrencies[0];
+                ToCurrency = ConvertCurrencies[1];
+                PerformConvert();
+            }
         }
     }
 }
