@@ -6,80 +6,92 @@
              xmlns:local="clr-namespace:cryptocurrenciesInform.Views"
              xmlns:converters="clr-namespace:cryptocurrenciesInform.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1000">
     <UserControl.Resources>
         <converters:IsMoreThenZeroConverter x:Key="IsMoreThenZeroConverter"/>
+        <Style x:Key="redOrGreen" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Green"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding changePercent24Hr, Converter={StaticResource IsMoreThenZeroConverter}}" Value="false">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ListItemBorder" TargetType="Border">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0,1,0,0"/>
+        </Style>
+        <Style x:Key="ListItemText" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="ListLabel" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        <Style x:Key="ScrollViewer" TargetType="ScrollViewer">
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+        </Style>
+        <Style x:Key="DockPanel" TargetType="DockPanel">
+            <Setter Property="LastChildFill" Value="False"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 40 0 0"/>
+        </Style>
     </UserControl.Resources>
 
-    <DockPanel DockPanel.Dock="Top">
-        <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center">
-
-
-            <Grid>
-
-                <ListBox ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedItem}" >
-                    <ListBox.Template>
-                        <ControlTemplate>
-                            <DockPanel LastChildFill="True">
-                                <Grid DockPanel.Dock="Top" Height="30">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="200"></ColumnDefinition>
-                                        <ColumnDefinition Width="200"></ColumnDefinition>
-                                        <ColumnDefinition Width="200"></ColumnDefinition>
-                                        <ColumnDefinition Width="200"></ColumnDefinition>
-                                        <ColumnDefinition Width="200"></ColumnDefinition>
-                                        <ColumnDefinition Width="200"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" HorizontalAlignment="Center">Name</Label>
-                                    <Label Grid.Column="1" HorizontalAlignment="Center">Price</Label>
-                                    <Label Grid.Column="2" HorizontalAlignment="Center">24h Volume</Label>
-                                    <Label Grid.Column="3" HorizontalAlignment="Center">24h Change</Label>
-                                </Grid>
-                                <ItemsPresenter></ItemsPresenter>
-                            </DockPanel>
-                        </ControlTemplate>
-                    </ListBox.Template>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Border Background="CadetBlue" Width="200" Height="40">
-                                    <TextBlock TextAlignment="Center" Margin="10" Text="{Binding currencyName }"/>
-                                </Border>
-                                <Border Background="Bisque" Width="200" Height="40">
-                                    <TextBlock TextAlignment="Center" Margin="10" >
-                                        <TextBlock.Text>
-                                            <Binding Path = "rateUsd" StringFormat="${0}" />
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                </Border>
-                                <Border Background="Aqua" Width="200" Height="40">
-                                    <TextBlock TextAlignment="Center" Margin="10"  Text="{Binding volumeUsd24Hr, StringFormat={}${0}}"/>
-                                </Border>
-                                <Border Background="Lavender" Width="200" Height="40">
-                                    <TextBlock x:Name="percent24" TextAlignment="Center" Margin="10"  Text="{Binding changePercent24Hr, StringFormat={}{0}%}">
-
-                                        <TextBlock.Style>
-                                            <Style TargetType="{x:Type TextBlock}">
-                                                <Setter Property="Foreground" Value="Green"/>
-
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding changePercent24Hr, Converter={StaticResource IsMoreThenZeroConverter}}" Value="false">
-                                                        <Setter Property="Foreground" Value="Red"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
-
-            </Grid>
-
-        </ScrollViewer>
-    </DockPanel>
+    <ScrollViewer  Style="{StaticResource ScrollViewer}">
+        <ListBox ItemsSource="{Binding Currencies}" 
+                 SelectedItem="{Binding SelectedItem}" 
+                 HorizontalContentAlignment="Center" Width="800">
+            <ListBox.Template>
+                <ControlTemplate>
+                    <DockPanel Style="{StaticResource DockPanel}">
+                        <Grid DockPanel.Dock="Top" Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Style="{StaticResource ListLabel}">Name</Label>
+                            <Label Grid.Column="1" Style="{StaticResource ListLabel}">Price</Label>
+                            <Label Grid.Column="2" Style="{StaticResource ListLabel}">24h Volume</Label>
+                            <Label Grid.Column="3" Style="{StaticResource ListLabel}">24h Change</Label>
+                        </Grid>
+                        <ItemsPresenter></ItemsPresenter>
+                    </DockPanel>
+                </ControlTemplate>
+            </ListBox.Template>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Style="{StaticResource ListItemBorder}">
+                            <TextBlock Style="{StaticResource ListItemText}" 
+                                       Text="{Binding currencyName }"/>
+                        </Border>
+                        <Border Style="{StaticResource ListItemBorder}">
+                            <TextBlock Style="{StaticResource ListItemText}" 
+                                       Text="{Binding rateUsd, StringFormat={}${0}}"/>
+                        </Border>
+                        <Border Style="{StaticResource ListItemBorder}">
+                            <TextBlock Style="{StaticResource ListItemText}"  
+                                       Text="{Binding volumeUsd24Hr, StringFormat={}${0}}"/>
+                        </Border>
+                        <Border Style="{StaticResource ListItemBorder}">
+                            <TextBlock x:Name="percent24" TextAlignment="Center" Margin="10"  
+                                       Text="{Binding changePercent24Hr, StringFormat={}{0}%}"  
+                                       Style="{StaticResource redOrGreen}"/>
+                        </Border>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </ScrollViewer>
 </UserControl>
